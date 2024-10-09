@@ -9,35 +9,54 @@ import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val listadoRespuestas = arrayOf("A", "B", "C", "A", "B", "C", "A", "B", "C")
-        print("Hello, world!")
-        Log.d("TAG", "Hello, world!");
-        val button = findViewById<Button>(R.id.button)
-        val radioGroup = findViewById<RadioGroup>(R.id.radioGroup1)
-        val respuestaTextView = findViewById<TextView>(R.id.textViewRespuesta1)
+
+        val listadoRespuestas = arrayOf(
+            "Pikachu",
+            "Charmander",
+            "Bulbasaur",
+            "Squirtle",
+            "Jigglypuff",
+            "Gengar",
+            "Mew",
+            "Eevee",
+            "Charizard",
+            "Mew"
+        )
+
+        val button = findViewById<Button>(R.id.buttonEnviar)
+        var contador = 0
 
         button.setOnClickListener {
-           val selectedRadioButtonId = radioGroup.checkedRadioButtonId
+            contador = 0
 
-            val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
+            for (i in 1..10) {
+                val radioGroup = findViewById<RadioGroup>(resources.getIdentifier("radioGroup$i", "id", packageName))
+                val selectedRadioButtonId = radioGroup.checkedRadioButtonId
+                val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
 
+                val respuestaTextView = findViewById<TextView>(resources.getIdentifier("textViewRespuesta$i", "id", packageName))
+                respuestaTextView.visibility = TextView.VISIBLE
 
-                respuestaTextView.text = when (selectedRadioButtonId) {
-                    R.id.radioButtonRespuesta1A -> listadoRespuestas[0]
-                    else -> "La respuesta correcta era " + listadoRespuestas[0]
+                if (selectedRadioButtonId != -1) {
+                    val selectedAnswer = selectedRadioButton.text.toString()
+                    if (selectedAnswer == listadoRespuestas[i - 1]) {
+                        contador++
+                    } else {
+                        respuestaTextView.text = "Respuesta correcta: ${listadoRespuestas[i - 1]}"
+                    }
+                } else {
+                    respuestaTextView.text = "No seleccionaste respuesta."
                 }
-            var contador = 1;
-            while (contador < 10) {
-                var direccion = "textViewPregunta$contador"
-                val selectedRadioButton = findViewById<RadioButton>(direccion)
-                contador++
-
             }
 
-
+            val resultadoTextView = findViewById<TextView>(R.id.textViewResultado)
+            resultadoTextView.text = "Respuestas correctas: $contador"
+            resultadoTextView.visibility = TextView.VISIBLE
+            Log.d("TAG", "Respuestas correctas: $contador")
         }
     }
 }

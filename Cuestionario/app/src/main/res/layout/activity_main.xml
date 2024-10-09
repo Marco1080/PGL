@@ -5,17 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".MainActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="409dp"
         android:layout_height="729dp"
-        android:contentDescription="ScrollView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,19 +26,33 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/imageViewPikachu"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="Imagen de Pikachu"
+                    android:src="@drawable/pika"
+                    android:textAlignment="center" />
+
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cuestionario"
+                    android:text="Test Pokémon"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textColor="#FF5722"
+                    android:textSize="28sp"
+                    android:fontFamily="sans-serif-medium" />
 
                 <TextView
                     android:id="@+id/textViewPregunta1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1. Pregunta 1" />
+                    android:text="1. ¿Cuál es el Pokémon inicial de tipo Fuego en la primera generación?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup1"
@@ -50,34 +63,41 @@
                         android:id="@+id/radioButtonRespuesta1A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Charmander"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta1B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Bulbasaur"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta1C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Squirtle"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Charmander"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2. Pregunta 2" />
+                    android:text="2. ¿De qué tipo es Pikachu?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup2"
@@ -88,33 +108,41 @@
                         android:id="@+id/radioButtonRespuesta2A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Eléctrico"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta2B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Agua"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta2C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Fuego"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
+                    android:text="Respuesta correcta: Eléctrico"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3. Pregunta 3" />
+                    android:text="3. ¿Qué evolución es de Eevee en tipo Agua?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup3"
@@ -125,34 +153,42 @@
                         android:id="@+id/radioButtonRespuesta3A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Vaporeon"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta3B"
-                        android:layout_width="match_parent"
+                        android:layout_width="205dp"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Flareon"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta3C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Jolteon"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta3"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Vaporeon"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4. Pregunta 4" />
+                    android:text="4. ¿Qué legendario es parte del trío de los pájaros legendarios?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup4"
@@ -163,34 +199,41 @@
                         android:id="@+id/radioButtonRespuesta4A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Articuno"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta4B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Rayquaza"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta4C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Suicune"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta4"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Articuno"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5. Pregunta 5" />
+                    android:text="5. ¿Cuál es el Pokémon de tipo Dragón más famoso de la primera generación?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup5"
@@ -201,34 +244,41 @@
                         android:id="@+id/radioButtonRespuesta5A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Charizard"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta5B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Dragonite"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta5C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Salamence"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta5"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Dragonite"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6. Pregunta 6" />
+                    android:text="6. ¿Qué tipo es Gengar?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup6"
@@ -239,34 +289,41 @@
                         android:id="@+id/radioButtonRespuesta6A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Fantasma"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta6B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Psíquico"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta6C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Veneno"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta6"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Fantasma"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="7. Pregunta 7" />
+                    android:text="7. ¿Qué Pokémon es conocido como el Pokémon Choclo?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup7"
@@ -277,34 +334,41 @@
                         android:id="@+id/radioButtonRespuesta7A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Tropius"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta7B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Gengar"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta7C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Oddish"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta7"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Tropius"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8. Pregunta 8" />
+                    android:text="8. ¿Qué Pokémon evoluciona de Pidgey?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup8"
@@ -315,34 +379,41 @@
                         android:id="@+id/radioButtonRespuesta8A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Pidgeotto"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta8B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Fearow"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta8C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Pidgeot"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta8"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Pidgeotto"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9. Pregunta 9" />
+                    android:text="9. ¿Qué tipo de Pokémon es Mewtwo?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup9"
@@ -353,34 +424,41 @@
                         android:id="@+id/radioButtonRespuesta9A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Psíquico"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta9B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Lucha"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta9C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Fantasma"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta9"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
-
+                    android:text="Respuesta correcta: Psíquico"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
 
                 <TextView
                     android:id="@+id/textViewPregunta10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10. Pregunta 10" />
+                    android:text="10. ¿Cuál es el Pokémon más raro en la primera generación?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif" />
 
                 <RadioGroup
                     android:id="@+id/radioGroup10"
@@ -391,37 +469,54 @@
                         android:id="@+id/radioButtonRespuesta10A"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta A" />
+                        android:text="Mew"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta10B"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta B" />
+                        android:text="Mewtwo"
+                        android:textColor="#FFFFFF" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRespuesta10C"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Respuesta C" />
+                        android:text="Zapdos"
+                        android:textColor="#FFFFFF" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/textViewRespuesta10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Respuesta correcta: Mew"
+                    android:visibility="gone"
+                    android:textColor="#FF5722" />
+
+                <Button
+                    android:id="@+id/buttonEnviar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Respuesta:" />
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="#FF5722"
+                    android:text="Corregir"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+                <TextView
+                    android:id="@+id/textViewResultado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resultados:"
+                    android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:layout_marginTop="24dp" />
+
+
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Corregir" />
-
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
