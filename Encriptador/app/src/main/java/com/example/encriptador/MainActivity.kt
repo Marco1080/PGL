@@ -1,5 +1,6 @@
 package com.example.encriptador
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -10,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.nio.file.Files
+import javax.xml.transform.Result
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,10 @@ class MainActivity : AppCompatActivity() {
             var texto = textInput.text.toString()
             var result = encriptadoCesar(texto,7)
             textOutput.setText(result)
+
+            val resultScreen = Intent(this, ResultActivity::class.java)
+            resultScreen.putExtra("data", result)
+            startActivity(resultScreen)
         }
 
     }
@@ -43,7 +49,6 @@ class MainActivity : AppCompatActivity() {
                 claveEncriptada.append(caracter)
             }
         }
-
         return claveEncriptada.toString()
     }
 }
