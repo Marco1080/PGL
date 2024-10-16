@@ -1,3 +1,11 @@
 <resources>
+
     <string name="app_name">Encriptador</string>
+
+    <string-array name="encryption_options">
+        <item>Codigo Cesar</item>
+        <item>Vigenere</item>
+        <item>Transposicion</item>
+    </string-array>
+
 </resources>

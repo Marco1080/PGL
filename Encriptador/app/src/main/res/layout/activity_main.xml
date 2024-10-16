@@ -6,54 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#5B806D"
-    tools:context=".MainActivity" >
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEncriptar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInput">
-
-    </com.google.android.material.textfield.TextInputLayout>
+    android:backgroundTint="#C2FFE0"
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/buttonEncriptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C2FFE0"
+        android:backgroundTint="#5B806D"
         android:text="Encriptar"
         android:textColor="#040404"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintVertical_bias="0.316" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInput"
         android:layout_width="365dp"
         android:layout_height="51dp"
-        android:background="#000000"
+        android:background="#090909"
+        android:backgroundTint="#5B806D"
         android:hint="Contraseña"
         android:textColor="#99FF33"
-        android:textColorLink="#FFFAFA"
+        android:textColorLink="#4CAF50"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonEncriptar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewOutput"
-        android:layout_width="148dp"
-        android:layout_height="29dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEncriptar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

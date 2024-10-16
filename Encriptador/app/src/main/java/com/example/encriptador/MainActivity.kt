@@ -2,18 +2,18 @@ package com.example.encriptador
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import java.nio.file.Files
-import javax.xml.transform.Result
 
 class MainActivity : AppCompatActivity() {
+
+    private val RESULT_CODE = 1
+    private lateinit var textOutput: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,24 +23,53 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var textOutput = findViewById<TextView>(R.id.textViewOutput)
-        var boton = findViewById<Button>(R.id.buttonEncriptar)
-        var textInput = findViewById<TextInputEditText>(R.id.textInput)
-        boton.setOnClickListener{
-            var texto = textInput.text.toString()
-            //var result = encriptadoCesar(texto,7)
-            var result = cifrarAfinado(texto,7, 7)
-            textOutput.setText(result)
+
+        textOutput = findViewById(R.id.textInput)
+        val boton = findViewById<Button>(R.id.buttonEncriptar)
+        val textInput = findViewById<TextInputEditText>(R.id.textInput)
+        val spinner = findViewById<Spinner>(R.id.spinner)
+
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.encryption_options,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        val bundle = intent.extras
+        val datoRecibido = bundle?.getString("data")
+        if (!datoRecibido.isNullOrEmpty()) {
+            textInput.setText(datoRecibido)
+        }
+
+        boton.setOnClickListener {
+            val texto = textInput.text.toString()
+            val selectedAlgorithm = spinner.selectedItem.toString()
+            val result: String? = when (selectedAlgorithm) {
+                "Codigo Cesar" -> encriptadoCesar(texto, 7)
+                "Vigenere" -> encriptadorVigenere(texto, "CLAVE")
+                "Transposicion" -> cifrarTransposicion(texto, 5)
+                else -> "Error"
+            }
 
             val resultScreen = Intent(this, ResultActivity::class.java)
             resultScreen.putExtra("data", result)
-            startActivity(resultScreen)
+            resultScreen.putExtra("algorithm", selectedAlgorithm)
+            startActivityForResult(resultScreen, RESULT_CODE)
         }
-
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_CODE && resultCode == RESULT_OK) {
+            val datoRecibido = data?.getStringExtra("data")
+            textOutput.text = datoRecibido
+        }
+    }
+
     fun encriptadoCesar(clave: String, desplazamiento: Int): String {
         val claveEncriptada = StringBuilder()
-
         for (caracter in clave) {
             if (caracter.isLetter()) {
                 val base = if (caracter.isUpperCase()) 'A' else 'a'
@@ -52,34 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
         return claveEncriptada.toString()
     }
-    fun cifrarAfinado(texto: String, a: Int, b: Int): String {
-        val n = 26
-        val resultado = StringBuilder()
 
-        for (caracter in texto) {
-            if (caracter.isLetter()) {
-                val x = if (caracter.isUpperCase()) {
-                    caracter - 'A'
-                } else {
-                    caracter - 'a'
-                }
-
-                val cifrado = (a * x + b) % n
-
-                val letraCifrada = if (caracter.isUpperCase()) {
-                    'A' + cifrado
-                } else {
-                    'a' + cifrado
-                }
-
-                resultado.append(letraCifrada)
-            } else {
-                resultado.append(caracter)
-            }
-        }
-
-        return resultado.toString()
-    }
     fun encriptadorVigenere(texto: String, clave: String): String {
         val resultado = StringBuilder()
         val n = 26
@@ -112,4 +114,29 @@ class MainActivity : AppCompatActivity() {
         return resultado.toString()
     }
 
+    fun cifrarTransposicion(texto: String, clave: Int): String {
+        val columnas = clave
+        val filas = (texto.length + columnas - 1) / columnas
+        val matriz = Array(filas) { CharArray(columnas) { ' ' } }
+
+        var index = 0
+        for (i in 0 until filas) {
+            for (j in 0 until columnas) {
+                if (index < texto.length) {
+                    matriz[i][j] = texto[index++]
+                }
+            }
+        }
+
+        val resultado = StringBuilder()
+        for (j in 0 until columnas) {
+            for (i in 0 until filas) {
+                if (matriz[i][j] != ' ') {
+                    resultado.append(matriz[i][j])
+                }
+            }
+        }
+
+        return resultado.toString()
+    }
 }
