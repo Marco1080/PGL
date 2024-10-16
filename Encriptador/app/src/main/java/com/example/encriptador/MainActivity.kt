@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         var textInput = findViewById<TextInputEditText>(R.id.textInput)
         boton.setOnClickListener{
             var texto = textInput.text.toString()
-            var result = encriptadoCesar(texto,7)
+            //var result = encriptadoCesar(texto,7)
+            var result = cifrarAfinado(texto,7, 7)
             textOutput.setText(result)
 
             val resultScreen = Intent(this, ResultActivity::class.java)
@@ -51,4 +52,64 @@ class MainActivity : AppCompatActivity() {
         }
         return claveEncriptada.toString()
     }
+    fun cifrarAfinado(texto: String, a: Int, b: Int): String {
+        val n = 26
+        val resultado = StringBuilder()
+
+        for (caracter in texto) {
+            if (caracter.isLetter()) {
+                val x = if (caracter.isUpperCase()) {
+                    caracter - 'A'
+                } else {
+                    caracter - 'a'
+                }
+
+                val cifrado = (a * x + b) % n
+
+                val letraCifrada = if (caracter.isUpperCase()) {
+                    'A' + cifrado
+                } else {
+                    'a' + cifrado
+                }
+
+                resultado.append(letraCifrada)
+            } else {
+                resultado.append(caracter)
+            }
+        }
+
+        return resultado.toString()
+    }
+    fun encriptadorVigenere(texto: String, clave: String): String {
+        val resultado = StringBuilder()
+        val n = 26
+        val claveNormalizada = clave.uppercase().filter { it.isLetter() }
+        var indiceClave = 0
+
+        for (caracter in texto) {
+            if (caracter.isLetter()) {
+                val desplazamiento = claveNormalizada[indiceClave % claveNormalizada.length] - 'A'
+                val x = if (caracter.isUpperCase()) {
+                    caracter - 'A'
+                } else {
+                    caracter - 'a'
+                }
+
+                val nuevoValor = (x + desplazamiento) % n
+                val letraCifrada = if (caracter.isUpperCase()) {
+                    'A' + nuevoValor
+                } else {
+                    'a' + nuevoValor
+                }
+
+                resultado.append(letraCifrada)
+                indiceClave++
+            } else {
+                resultado.append(caracter)
+            }
+        }
+
+        return resultado.toString()
+    }
+
 }
