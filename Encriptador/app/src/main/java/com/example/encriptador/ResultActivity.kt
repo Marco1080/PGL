@@ -1,7 +1,9 @@
 package com.example.encriptador
 
+import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,12 @@ class ResultActivity : AppCompatActivity() {
         val dato = bundle?.getString("data")
         val textInput = findViewById<TextView>(R.id.textView)
         textInput.setText(dato.toString())
+
+        val buttonDescifrar = findViewById<Button>(R.id.buttonDescifrar)
+        buttonDescifrar.setOnClickListener{
+            val cifradorPantalla = Intent(this, MainActivity::class.java)
+            startActivity(cifradorPantalla)
+        }
 
     }
 }
