@@ -32,12 +32,18 @@ class LoginActivity : AppCompatActivity() {
                     val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
                     val bd = admin.writableDatabase
                     val registro = ContentValues()
-                    registro.put("user", user.text.toString())
-                    registro.put("password", password.text.toString())
-                    bd.insert("usuarios", null, registro)
+                    val validacion:Cursor = bd.rawQuery("SELECT * FROM usuarios WHERE user = ? AND password = ?",
+                        arrayOf(user.text.toString(), password.text.toString()))
+                    if(!validacion.moveToFirst()){
+                        registro.put("user", user.text.toString())
+                        registro.put("password", password.text.toString())
+                        bd.insert("usuarios", null, registro)
+
+                    }
+                    Log.d("menssage","Ya existe un registro con usuario: ${user.text.toString()} y contraseña: ${password.text.toString()}")
                     bd.close()
 
-                    //mostrarRegistros()
+                    mostrarRegistros()
                 } catch (e: Exception) {
                     Log.e("DB", "Error al insertar datos: ${e.message}")
                 }
@@ -45,8 +51,21 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("Validation", "Los campos user o password están vacíos")
             }
         }
+        val buttonDelete = findViewById<Button>(R.id.buttonDelete)
+        buttonDelete.setOnClickListener{
+            try {
+                val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+                val bd = admin.writableDatabase
+                bd.execSQL("DELETE FROM usuarios")
+                bd.close()
+                Log.d("menssage","Base de datos borrada")
+            } catch (e: Exception) {
+                Log.e("DB", "HAS BORRADO PRODUCCION")
+            }
+        }
     }
-/*
+
+
     private fun mostrarRegistros() {
         try {
             val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
@@ -71,5 +90,5 @@ class LoginActivity : AppCompatActivity() {
             Log.e("DB", "Error al leer los registros: ${e.message}")
         }
     }
-    */
+
 }
