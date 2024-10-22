@@ -1,10 +1,11 @@
 package com.example.encriptador
 
 import android.content.ContentValues
+import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,72 +23,120 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        val textViewResult = findViewById<TextView>(R.id.textViewResult)
+
+        val buttonLogin = findViewById<Button>(R.id.buttonLogin)
+        val buttonSignUp = findViewById<Button>(R.id.buttonSignup)
+        val buttonChangePassword = findViewById<Button>(R.id.buttonChangePassword)
+        val buttonDelete = findViewById<Button>(R.id.buttonDelete)
+
         val user: TextInputEditText? = findViewById(R.id.textInputEditTextUser)
         val password: TextInputEditText? = findViewById(R.id.textInputEditTextPassword)
 
-        val buttonSignUp = findViewById<Button>(R.id.buttonSignup)
-        buttonSignUp.setOnClickListener {
-            if (user != null && password != null) {
-                try {
-                    val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
-                    val bd = admin.writableDatabase
-                    val registro = ContentValues()
-                    val validacion:Cursor = bd.rawQuery("SELECT * FROM usuarios WHERE user = ? AND password = ?",
-                        arrayOf(user.text.toString(), password.text.toString()))
-                    if(!validacion.moveToFirst()){
-                        registro.put("user", user.text.toString())
-                        registro.put("password", password.text.toString())
-                        bd.insert("usuarios", null, registro)
+        buttonLogin.setOnClickListener{
+            val userInput = user?.text.toString().trim()
+            val passwordInput = password?.text.toString().trim()
 
-                    }
-                    Log.d("menssage","Ya existe un registro con usuario: ${user.text.toString()} y contraseña: ${password.text.toString()}")
-                    bd.close()
+            if (userInput.isEmpty() || passwordInput.isEmpty()) {
+                textViewResult.text = "Hay campos vacíos."
+                return@setOnClickListener
+            }
+            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+            val bd = admin.writableDatabase
+            val validacion: Cursor = bd.rawQuery("SELECT * FROM usuarios WHERE user = ? and password = ?",
+                arrayOf(userInput, passwordInput))
+            if(validacion.moveToFirst()) {
+                val resultScreen = Intent(this, MainActivity::class.java)
+                startActivity(resultScreen)
+            }
+            bd.close()
+        }
 
-                    mostrarRegistros()
-                } catch (e: Exception) {
-                    Log.e("DB", "Error al insertar datos: ${e.message}")
+        buttonChangePassword.setOnClickListener {
+            val userInput = user?.text.toString().trim()
+            val passwordInput = password?.text.toString().trim()
+
+            if (userInput.isEmpty() || passwordInput.isEmpty()) {
+                textViewResult.text = "Hay campos vacíos."
+                return@setOnClickListener
+            }
+
+            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+            val bd = admin.writableDatabase
+
+            val validacion: Cursor = bd.rawQuery("SELECT * FROM usuarios WHERE user = ?", arrayOf(userInput))
+
+            if (validacion.moveToFirst()) {
+                val contentValues = ContentValues().apply {
+                    put("password", passwordInput)
+                }
+
+                val rowsAffected = bd.update("usuarios", contentValues, "user = ?", arrayOf(userInput))
+
+                if (rowsAffected > 0) {
+                    textViewResult.text = "Se ha cambiado la contraseña"
+                } else {
+                    textViewResult.text = "Error al cambiar la contraseña"
                 }
             } else {
-                Log.d("Validation", "Los campos user o password están vacíos")
-            }
-        }
-        val buttonDelete = findViewById<Button>(R.id.buttonDelete)
-        buttonDelete.setOnClickListener{
-            try {
-                val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
-                val bd = admin.writableDatabase
-                bd.execSQL("DELETE FROM usuarios")
-                bd.close()
-                Log.d("menssage","Base de datos borrada")
-            } catch (e: Exception) {
-                Log.e("DB", "HAS BORRADO PRODUCCION")
-            }
-        }
-    }
-
-
-    private fun mostrarRegistros() {
-        try {
-            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
-            val bd = admin.readableDatabase
-
-            val cursor: Cursor = bd.rawQuery("SELECT * FROM usuarios", null)
-
-            if (cursor.moveToFirst()) {
-                do {
-                    val id = cursor.getInt(cursor.getColumnIndex("id"))
-                    val user = cursor.getString(cursor.getColumnIndex("user"))
-                    val password = cursor.getString(cursor.getColumnIndex("password"))
-                    Log.d("DB", "ID: $id, User: $user, Password: $password")
-                } while (cursor.moveToNext())
-            } else {
-                Log.d("DB", "No hay registros en la tabla")
+                textViewResult.text = "Usuario no encontrado"
             }
 
-            cursor.close()
+            validacion.close()
             bd.close()
-        } catch (e: Exception) {
-            Log.e("DB", "Error al leer los registros: ${e.message}")
+        }
+
+        buttonSignUp.setOnClickListener {
+            val userInput = user?.text.toString().trim()
+            val passwordInput = password?.text.toString().trim()
+
+            if (userInput.isEmpty() || passwordInput.isEmpty()) {
+                textViewResult.text = "Hay campos vacíos."
+                return@setOnClickListener
+            }
+
+            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+            val bd = admin.writableDatabase
+
+            val validacion: Cursor = bd.rawQuery("SELECT * FROM usuarios WHERE user = ?", arrayOf(userInput))
+
+            if (!validacion.moveToFirst()) {
+                val registro = ContentValues().apply {
+                    put("user", userInput)
+                    put("password", passwordInput)
+                }
+
+                bd.insert("usuarios", null, registro)
+                textViewResult.text = "Se ha registrado el usuario $userInput"
+            } else {
+                textViewResult.text = "El usuario ya existe."
+            }
+
+            validacion.close()
+            bd.close()
+        }
+
+        buttonDelete.setOnClickListener {
+            val userInput = user?.text.toString().trim()
+            val passwordInput = password?.text.toString().trim()
+
+            if (userInput.isEmpty() || passwordInput.isEmpty()) {
+                textViewResult.text = "Hay campos vacíos."
+                return@setOnClickListener
+            }
+
+            val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
+            val bd = admin.writableDatabase
+
+            val rowsDeleted = bd.delete("usuarios", "user = ? AND password = ?", arrayOf(userInput, passwordInput))
+
+            if (rowsDeleted > 0) {
+                textViewResult.text = "Se ha borrado la cuenta asociada a $userInput"
+            } else {
+                textViewResult.text = "No se encontró la cuenta para eliminar."
+            }
+
+            bd.close()
         }
     }
 
