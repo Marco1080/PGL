@@ -94,6 +94,21 @@ class LoginActivity : AppCompatActivity() {
                 textViewResult.text = "Hay campos vacíos."
                 return@setOnClickListener
             }
+            if (passwordInput.length<8) {
+                textViewResult.text = "La contraseña debe tener 8 caracteres."
+                return@setOnClickListener
+            }
+            var mayuscula = "[A-Z]+".toRegex();
+            var numeros = "[0-9]+".toRegex();
+            if (!mayuscula.containsMatchIn(passwordInput)) {
+                textViewResult.text = "La contraseña debe tener al menos una mayuscula."
+                return@setOnClickListener
+            }
+
+            if (!numeros.containsMatchIn(passwordInput)) {
+                textViewResult.text = "La contraseña debe tener al menos un número."
+                return@setOnClickListener
+            }
 
             val admin = AdminSQLiteOpenHelper(this, "administracion", null, 1)
             val bd = admin.writableDatabase
