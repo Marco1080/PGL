@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             val validacion: Cursor = bd.rawQuery("SELECT * FROM usuarios WHERE user = ? and password = ?",
                 arrayOf(userInput, passwordInput))
             if(validacion.moveToFirst()) {
-                val resultScreen = Intent(this, MainActivity::class.java)
+                val resultScreen = Intent(this, Cuestionario::class.java)
                 startActivity(resultScreen)
             }
             bd.close()
