@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewPregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pregunta 1: ¿Cuál es el planeta más cercano al sol?"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupRespuestas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioButtonCorrecto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mercurio" />
+
+        <RadioButton
+            android:id="@+id/radioButtonIncorrecto1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Venus" />
+
+        <RadioButton
+            android:id="@+id/radioButtonIncorrecto2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tierra" />
+
+        <RadioButton
+            android:id="@+id/radioButtonIncorrecto3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marte" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Siguiente" />
+</LinearLayout>
