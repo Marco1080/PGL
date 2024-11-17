@@ -15,13 +15,47 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerColor" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerColorVertical"
+        app:layout_constraintVertical_bias="0.3" />
 
     <Spinner
-        android:id="@+id/spinnerColor"
-        android:layout_width="413dp"
-        android:layout_height="117dp"
+        android:id="@+id/spinnerGrosorHorizontal"
+        android:layout_width="335dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerColorHorizontal"
+        android:layout_width="335dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGrosorHorizontal" />
+
+    <Spinner
+        android:id="@+id/spinnerGrosorVertical"
+        android:layout_width="335dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.605"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerColorHorizontal" />
+
+    <Spinner
+        android:id="@+id/spinnerColorVertical"
+        android:layout_width="335dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGrosorVertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
