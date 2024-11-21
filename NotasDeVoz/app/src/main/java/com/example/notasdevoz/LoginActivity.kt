@@ -17,6 +17,13 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         val admin = DataBase(this, "usuarios", null, 1)
-        val bd = admin.writableDatabase
+        val db = admin.writableDatabase
+        var sql = "SELECT * FROM usuarios"
+        var listaUsuarios = db.rawQuery(sql, null)
+        if(listaUsuarios.moveToFirst()){
+
+        }else{
+
+        }
     }
 }
