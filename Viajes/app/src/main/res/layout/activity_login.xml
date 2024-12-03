@@ -53,7 +53,7 @@
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/tvRegisterLink"
+            android:id="@+id/goToRegister"
             android:layout_width="198dp"
             android:layout_height="45dp"
             android:layout_marginTop="16dp"
