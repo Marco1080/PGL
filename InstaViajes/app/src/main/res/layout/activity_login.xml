@@ -6,5 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicio de Sesión"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Campo Email -->
+        <EditText
+            android:id="@+id/etEmailLogin"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress"
+            android:padding="10dp" />
+
+        <!-- Campo Contraseña -->
+        <EditText
+            android:id="@+id/etPasswordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Iniciar Sesión"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/goToRegister"
+            android:layout_width="198dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="¿No tienes cuenta? Regístrate" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
