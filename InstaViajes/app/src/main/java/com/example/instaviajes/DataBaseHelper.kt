@@ -6,15 +6,56 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class DataBaseHelper(
     context: Context?,
-    name: String?,
-    factory: SQLiteDatabase.CursorFactory?,
-    version: Int
+    name: String? = "instaviajes.db",
+    factory: SQLiteDatabase.CursorFactory? = null,
+    version: Int = 1
 ) : SQLiteOpenHelper(context, name, factory, version) {
+
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL("CREATE TABLE clientes (numeroCuenta TEXT PRIMARY KEY, nombreTitular TEXT, apellidos TEXT, saldo INTEGER, planBancario TEXT)")
+        db?.execSQL(
+            """
+            CREATE TABLE usuarios (
+                idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT NOT NULL,
+                apellidos TEXT NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL
+            )
+            """
+        )
+
+        db?.execSQL(
+            """
+            CREATE TABLE viajes (
+                idViaje INTEGER PRIMARY KEY AUTOINCREMENT,
+                titulo TEXT NOT NULL,
+                descripcion TEXT,
+                fechaInicio TEXT NOT NULL,
+                fechaFin TEXT NOT NULL,
+                creadorId INTEGER NOT NULL,
+                FOREIGN KEY(creadorId) REFERENCES usuarios(idUsuario)
+            )
+            """
+        )
+
+        db?.execSQL(
+            """
+            CREATE TABLE participaciones (
+                idParticipacion INTEGER PRIMARY KEY AUTOINCREMENT,
+                idUsuario INTEGER NOT NULL,
+                idViaje INTEGER NOT NULL,
+                FOREIGN KEY(idUsuario) REFERENCES usuarios(idUsuario),
+                FOREIGN KEY(idViaje) REFERENCES viajes(idViaje),
+                UNIQUE(idUsuario, idViaje)
+            )
+            """
+        )
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db?.execSQL("DROP TABLE IF EXISTS participaciones")
+        db?.execSQL("DROP TABLE IF EXISTS viajes")
+        db?.execSQL("DROP TABLE IF EXISTS usuarios")
+        onCreate(db)
     }
 }
