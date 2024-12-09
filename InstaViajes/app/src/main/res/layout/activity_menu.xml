@@ -17,28 +17,40 @@
         android:padding="8dp">
 
       <Button
-          android:id="@+id/btnVerViajes"
+          android:id="@+id/btnPerfil"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textSize="14sp"
-          android:drawableStart="@drawable/viajedenegocios"
+          android:layout_marginBottom="8dp"
+          android:drawableStart="@drawable/informacion"
           android:drawablePadding="12dp"
           android:paddingStart="8dp"
           android:paddingEnd="8dp"
-          android:text="Ver Viajes Disponibles"
-          android:layout_marginBottom="8dp" />
+          android:text="Perfil de Usuario"
+          android:textSize="14sp" />
 
       <Button
           android:id="@+id/btnCrearViaje"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textSize="14sp"
+          android:layout_marginBottom="8dp"
           android:drawableStart="@drawable/ruedadentada"
           android:drawablePadding="12dp"
           android:paddingStart="8dp"
           android:paddingEnd="8dp"
           android:text="Crear un Nuevo Viaje"
-          android:layout_marginBottom="8dp" />
+          android:textSize="14sp" />
+
+      <Button
+          android:id="@+id/btnVerViajes"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:drawableStart="@drawable/viajedenegocios"
+          android:drawablePadding="12dp"
+          android:paddingStart="8dp"
+          android:paddingEnd="8dp"
+          android:text="Ver Viajes Disponibles"
+          android:textSize="14sp" />
 
       <Button
           android:id="@+id/btnMisViajes"
@@ -50,18 +62,6 @@
           android:paddingStart="8dp"
           android:paddingEnd="8dp"
           android:text="Mis Viajes"
-          android:layout_marginBottom="8dp" />
-
-      <Button
-          android:id="@+id/btnPerfil"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="14sp"
-          android:drawableStart="@drawable/informacion"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Perfil de Usuario"
           android:layout_marginBottom="8dp" />
 
       <Button
@@ -77,18 +77,6 @@
           android:layout_marginBottom="8dp" />
 
       <Button
-          android:id="@+id/btnCerrarSesion"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="14sp"
-          android:drawableStart="@drawable/botondeinicio"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Cerrar Sesión"
-          android:layout_marginBottom="8dp" />
-
-      <Button
           android:id="@+id/btnConfiguracion"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -99,6 +87,18 @@
           android:paddingEnd="8dp"
           android:text="Configuración"
           android:layout_marginBottom="8dp" />
+
+      <Button
+          android:id="@+id/btnCerrarSesion"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:drawableStart="@drawable/botondeinicio"
+          android:drawablePadding="12dp"
+          android:paddingStart="8dp"
+          android:paddingEnd="8dp"
+          android:text="Cerrar Sesión"
+          android:textSize="14sp" />
 
     </LinearLayout>
   </ScrollView>
