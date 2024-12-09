@@ -3,6 +3,7 @@ package com.example.instaviajes
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class DataBaseHelper(
     context: Context?,
@@ -19,7 +20,8 @@ class DataBaseHelper(
                 nombre TEXT,
                 apellidos TEXT,
                 email TEXT,
-                password TEXT
+                password TEXT,
+                imagenPerfil TEXT
             )
             """
         )
@@ -28,11 +30,13 @@ class DataBaseHelper(
             """
             CREATE TABLE viajes (
                 idViaje INTEGER PRIMARY KEY AUTOINCREMENT,
-                titulo TEXT NOT NULL,
+                titulo TEXT NOT NULL UNIQUE,
                 descripcion TEXT,
+                pais TEXT,
                 fechaInicio TEXT NOT NULL,
                 fechaFin TEXT NOT NULL,
                 creadorId INTEGER NOT NULL,
+                imagenPortada TEXT,
                 FOREIGN KEY(creadorId) REFERENCES usuarios(idUsuario)
             )
             """
@@ -50,12 +54,20 @@ class DataBaseHelper(
             )
             """
         )
+
+        db?.execSQL(
+            """
+            CREATE TABLE imagenesViaje (
+                idImagen INTEGER PRIMARY KEY AUTOINCREMENT,
+                idViaje INTEGER NOT NULL,
+                rutaImagen TEXT NOT NULL,
+                FOREIGN KEY(idViaje) REFERENCES viajes(idViaje)
+            )
+            """
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS participaciones")
-        db?.execSQL("DROP TABLE IF EXISTS viajes")
-        db?.execSQL("DROP TABLE IF EXISTS usuarios")
-        onCreate(db)
+
     }
 }

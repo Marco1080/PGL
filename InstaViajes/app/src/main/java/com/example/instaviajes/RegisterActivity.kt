@@ -29,7 +29,8 @@ class RegisterActivity : AppCompatActivity() {
             val confirmPassword = etConfirmPassword.text.toString()
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
@@ -40,7 +41,6 @@ class RegisterActivity : AppCompatActivity() {
 
             val db = dbHelper.writableDatabase
 
-            // Verifica si el correo ya existe
             val cursor = db.rawQuery(
                 "SELECT * FROM usuarios WHERE email = ?",
                 arrayOf(email)
@@ -54,10 +54,12 @@ class RegisterActivity : AppCompatActivity() {
 
             cursor.close()
 
-            // Inserta el usuario
             val values = ContentValues().apply {
                 put("nombre", name)
-                put("apellidos", "ApellidoDesconocido") // Si no lo necesitas, cámbialo o elimina la columna
+                put(
+                    "apellidos",
+                    "ApellidoDesconocido"
+                )
                 put("email", email)
                 put("password", password)
             }
@@ -66,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (newRowId != -1L) {
                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                finish() // Cierra la actividad y regresa al login
+                finish()
             } else {
                 Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show()
             }

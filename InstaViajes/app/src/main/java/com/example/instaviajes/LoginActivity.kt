@@ -37,13 +37,11 @@ class LoginActivity : AppCompatActivity() {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
-            // Validar campos vacíos
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Comprobar si el usuario existe
             val dbHelper = DataBaseHelper(this)
             val db = dbHelper.readableDatabase
             val cursor = db.rawQuery(
@@ -52,17 +50,22 @@ class LoginActivity : AppCompatActivity() {
             )
 
             if (cursor.moveToFirst()) {
-                // Inicio de sesión exitoso
-                Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                cursor.close()
-                db.close()
+                val userIdIndex = cursor.getColumnIndex("idUsuario")
+                if (userIdIndex != -1) {
+                    val userId = cursor.getInt(userIdIndex)
 
-                // Navegar al menú
-                val pantallaMenu = Intent(this, MenuActivity::class.java)
-                startActivity(pantallaMenu)
-                finish()
+                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    cursor.close()
+                    db.close()
+
+                    val pantallaMenu = Intent(this, MenuActivity::class.java)
+                    pantallaMenu.putExtra("USER_ID", userId)
+                    startActivity(pantallaMenu)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Error: columna 'idUsuario' no encontrada", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                // Error en el inicio de sesión
                 Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                 cursor.close()
                 db.close()

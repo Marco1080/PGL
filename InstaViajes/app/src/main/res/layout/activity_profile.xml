@@ -8,7 +8,6 @@
     tools:context=".ProfileActivity"
     android:padding="16dp">
 
-    <!-- Profile Image -->
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="100dp"
@@ -30,7 +29,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- Full Name -->
     <TextView
         android:id="@+id/tvFullNameLabel"
         android:layout_width="wrap_content"
@@ -50,7 +48,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvFullNameLabel"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Email -->
     <TextView
         android:id="@+id/tvEmailLabel"
         android:layout_width="wrap_content"
@@ -70,7 +67,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Phone Number -->
     <TextView
         android:id="@+id/tvPhoneLabel"
         android:layout_width="wrap_content"
@@ -90,7 +86,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvPhoneLabel"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Country -->
     <TextView
         android:id="@+id/tvCountryLabel"
         android:layout_width="wrap_content"
@@ -108,7 +103,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvCountryLabel"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Age -->
     <TextView
         android:id="@+id/tvAgeLabel"
         android:layout_width="wrap_content"
@@ -128,7 +122,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- Save Button -->
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,51 +14,72 @@
         android:padding="16dp"
         android:gravity="center">
 
-        <!-- Título -->
         <TextView
             android:id="@+id/tvLoginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inicio de Sesión"
+            android:text="Inicio de sesión"
             android:textSize="24sp"
+            android:textColor="#212121"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="32dp"/>
 
-        <!-- Campo Email -->
-        <EditText
-            android:id="@+id/etEmailLogin"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:layout_marginBottom="16dp"
-            android:hint="Correo electrónico"
-            android:inputType="textEmailAddress"
-            android:padding="10dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
 
-        <!-- Campo Contraseña -->
-        <EditText
-            android:id="@+id/etPasswordLogin"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmailLogin"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:hint="Correo electrónico"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp"
+                android:textColor="#212121"
+                android:background="@drawable/selector_edittext"
+                android:padding="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:layout_marginBottom="16dp"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:padding="10dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPasswordLogin"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:textColor="#212121"
+                android:background="@drawable/selector_edittext"
+                android:padding="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Iniciar Sesión"
-            android:textColor="@android:color/white"/>
+            android:text="Iniciar sesión"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#6200EE"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:padding="14dp"/>
 
         <TextView
             android:id="@+id/goToRegister"
-            android:layout_width="198dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="¿No tienes cuenta? Regístrate" />
+            android:text="¿No tienes cuenta? Regístrate"
+            android:textColor="#6200EE"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

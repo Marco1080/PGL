@@ -7,100 +7,124 @@
     android:layout_height="match_parent"
     tools:context=".MenuActivity">
 
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-      <Button
-          android:id="@+id/btnPerfil"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="8dp"
-          android:drawableStart="@drawable/informacion"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Perfil de Usuario"
-          android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-      <Button
-          android:id="@+id/btnCrearViaje"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="8dp"
-          android:drawableStart="@drawable/ruedadentada"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Crear un Nuevo Viaje"
-          android:textSize="14sp" />
+            <Button
+                android:id="@+id/btnPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#6200EE"
+                android:drawableStart="@drawable/informacion"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Perfil"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-      <Button
-          android:id="@+id/btnVerViajes"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="8dp"
-          android:drawableStart="@drawable/viajedenegocios"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Ver Viajes Disponibles"
-          android:textSize="14sp" />
+            <Button
+                android:id="@+id/btnCrearViaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#6200EE"
+                android:drawableStart="@drawable/ruedadentada"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Crear un viaje"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-      <Button
-          android:id="@+id/btnMisViajes"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="14sp"
-          android:drawableStart="@drawable/usuariodeperfil"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Mis Viajes"
-          android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/btnVerViajes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#6200EE"
+                android:drawableStart="@drawable/viajedenegocios"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Viajes disponibles"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-      <Button
-          android:id="@+id/btnNotificaciones"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="14sp"
-          android:drawableStart="@drawable/campana"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Notificaciones"
-          android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/btnMisViajes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#6200EE"
+                android:drawableStart="@drawable/usuariodeperfil"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Mis viajes"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-      <Button
-          android:id="@+id/btnConfiguracion"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textSize="14sp"
-          android:drawableStart="@drawable/buscar"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Configuración"
-          android:layout_marginBottom="8dp" />
+            <Button
+                android:id="@+id/btnNotificaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#6200EE"
+                android:drawableStart="@drawable/campana"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Notificaciones"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-      <Button
-          android:id="@+id/btnCerrarSesion"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="8dp"
-          android:drawableStart="@drawable/botondeinicio"
-          android:drawablePadding="12dp"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
-          android:text="Cerrar Sesión"
-          android:textSize="14sp" />
+            <Button
+                android:id="@+id/btnConfiguracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#6200EE"
+                android:drawableStart="@drawable/buscar"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Configuración"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
-  </ScrollView>
+            <Button
+                android:id="@+id/btnCerrarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#FF3B30"
+                android:drawableStart="@drawable/botondeinicio"
+                android:drawablePadding="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Cerrar sesión"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
