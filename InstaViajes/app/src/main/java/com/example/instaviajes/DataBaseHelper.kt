@@ -16,10 +16,10 @@ class DataBaseHelper(
             """
             CREATE TABLE usuarios (
                 idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
-                nombre TEXT NOT NULL,
-                apellidos TEXT NOT NULL,
-                email TEXT UNIQUE NOT NULL,
-                password TEXT NOT NULL
+                nombre TEXT,
+                apellidos TEXT,
+                email TEXT,
+                password TEXT
             )
             """
         )

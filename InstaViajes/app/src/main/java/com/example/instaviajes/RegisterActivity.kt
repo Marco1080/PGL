@@ -1,27 +1,75 @@
 package com.example.instaviajes
 
-import android.content.Intent
+import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var dbHelper: DataBaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_register)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        val goToLogin = findViewById<TextView>(R.id.goToLogin)
-        goToLogin.setOnClickListener{
-            val pantallaLogin = Intent(this, LoginActivity::class.java)
-            startActivity(pantallaLogin)
+
+        dbHelper = DataBaseHelper(this)
+
+        val etName = findViewById<EditText>(R.id.etNameRegister)
+        val etEmail = findViewById<EditText>(R.id.etEmailRegister)
+        val etPassword = findViewById<EditText>(R.id.etPasswordRegister)
+        val etConfirmPassword = findViewById<EditText>(R.id.etConfirmPasswordRegister)
+        val btnRegister = findViewById<Button>(R.id.btnRegister)
+
+        btnRegister.setOnClickListener {
+            val name = etName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString()
+            val confirmPassword = etConfirmPassword.text.toString()
+
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (password != confirmPassword) {
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val db = dbHelper.writableDatabase
+
+            // Verifica si el correo ya existe
+            val cursor = db.rawQuery(
+                "SELECT * FROM usuarios WHERE email = ?",
+                arrayOf(email)
+            )
+
+            if (cursor.count > 0) {
+                Toast.makeText(this, "El correo ya está registrado", Toast.LENGTH_SHORT).show()
+                cursor.close()
+                return@setOnClickListener
+            }
+
+            cursor.close()
+
+            // Inserta el usuario
+            val values = ContentValues().apply {
+                put("nombre", name)
+                put("apellidos", "ApellidoDesconocido") // Si no lo necesitas, cámbialo o elimina la columna
+                put("email", email)
+                put("password", password)
+            }
+
+            val newRowId = db.insert("usuarios", null, values)
+
+            if (newRowId != -1L) {
+                Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                finish() // Cierra la actividad y regresa al login
+            } else {
+                Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
