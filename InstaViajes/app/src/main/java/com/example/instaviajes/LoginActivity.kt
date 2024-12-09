@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
         val goToMenu = findViewById<TextView>(R.id.btnLogin)
         goToMenu.setOnClickListener{
-            val pantallaMenu = Intent(this, ProfileActivity::class.java)
+            val pantallaMenu = Intent(this, MenuActivity::class.java)
             startActivity(pantallaMenu)
         }
     }
