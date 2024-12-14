@@ -64,13 +64,13 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#000000"
         android:text="Iniciar sesión"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/noRegistrado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordInput" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/noRegistrado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="212dp"

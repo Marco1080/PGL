@@ -1,8 +1,9 @@
 package com.example.instaviajes2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
@@ -21,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+
         val imageView: ImageView = findViewById(R.id.backgroundImage)
 
         val images = arrayOf(
@@ -33,5 +35,11 @@ class LoginActivity : AppCompatActivity() {
         val randomImage = images[Random.nextInt(images.size)]
 
         imageView.setImageResource(randomImage)
+
+        val noRegistrado = findViewById<TextView>(R.id.noRegistrado)
+        noRegistrado.setOnClickListener{
+            val pantallaRegistro = Intent(this, RegisterActivity::class.java)
+            startActivity(pantallaRegistro)
+        }
     }
 }
