@@ -28,6 +28,7 @@ class MenuActivity : AppCompatActivity(), ScaleGestureDetector.OnScaleGestureLis
         scaleGestureDetector = ScaleGestureDetector(this, this)
 
         // Encuentra todos los LinearLayouts a los que deseas aplicar el zoom
+        val layoutAvailableTrip = findViewById<LinearLayout>(R.id.layoutAvailableTrips)
         val layoutLogout = findViewById<LinearLayout>(R.id.layoutLogout)
         val layoutProfile = findViewById<LinearLayout>(R.id.layoutProfile)
         val layoutMyTrips = findViewById<LinearLayout>(R.id.layoutMyTrips)
@@ -46,6 +47,11 @@ class MenuActivity : AppCompatActivity(), ScaleGestureDetector.OnScaleGestureLis
         layoutLogout.setOnClickListener {
             val pantallaLogin = Intent(this, LoginActivity::class.java)
             startActivity(pantallaLogin)
+        }
+
+        layoutAvailableTrip.setOnClickListener {
+            val pantallaViajes = Intent(this, TripsActivity::class.java)
+            startActivity(pantallaViajes)
         }
 
         layoutProfile.setOnClickListener {
@@ -97,6 +103,10 @@ class MenuActivity : AppCompatActivity(), ScaleGestureDetector.OnScaleGestureLis
                 when (command) {
                     "perfil" -> {
                         val intent = Intent(this, ProfileActivity::class.java)
+                        startActivity(intent)
+                    }
+                    "viajes disponibles" -> {
+                        val intent = Intent(this, TripsActivity::class.java)
                         startActivity(intent)
                     }
                     "mis viajes" -> {
