@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Image for the trip -->
         <ImageView
             android:id="@+id/imageViewTrip"
             android:layout_width="match_parent"
@@ -23,7 +22,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/edittext_background" />
 
-        <!-- Trip Description -->
         <TextView
             android:id="@+id/textViewDescription"
             android:layout_width="match_parent"
@@ -35,7 +33,6 @@
             android:ellipsize="end"
             android:maxLines="2" />
 
-        <!-- Trip Date and Location -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -60,7 +57,6 @@
                 android:textColor="@android:color/darker_gray" />
         </LinearLayout>
 
-        <!-- Button to show trip details -->
         <Button
             android:id="@+id/buttonDetails"
             android:layout_width="wrap_content"

@@ -19,7 +19,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        // Obtener los elementos de la interfaz
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
         val emailInput = findViewById<EditText>(R.id.emailInput)
         val phoneInput = findViewById<EditText>(R.id.phoneInput)
@@ -27,20 +26,14 @@ class ProfileActivity : AppCompatActivity() {
         val saveButton = findViewById<Button>(R.id.saveButton)
         val extraImage = findViewById<ImageView>(R.id.extraImage)
 
-        // Configuración del botón de guardar
         saveButton.setOnClickListener {
-            // Obtener los valores de los campos
             val username = usernameInput.text.toString()
             val email = emailInput.text.toString()
             val phone = phoneInput.text.toString()
             val description = descriptionInput.text.toString()
-
-            // Aquí puedes guardar estos datos en una base de datos o realizar cualquier acción con ellos
-            // Por ejemplo, puedes mostrar un mensaje o ir a otra actividad
             Toast.makeText(this, "Perfil actualizado.", Toast.LENGTH_SHORT).show()
         }
 
-        // Configuración de la imagen (micrófono) para iniciar el reconocimiento de voz
         extraImage.setOnClickListener {
             startSpeechToText()
         }

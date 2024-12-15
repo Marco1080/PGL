@@ -13,9 +13,20 @@
         android:layout_height="match_parent"
         android:contentDescription=""
         android:scaleType="centerCrop"
-        android:src="@drawable/montania2"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-143dp" />
+        android:src="@drawable/montania2" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Registro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,9 +34,8 @@
         android:layout_height="160dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage"
+        app:layout_constraintTop_toBottomOf="@id/title"
         android:src="@drawable/traveller" />
 
     <EditText
@@ -40,7 +50,6 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
@@ -69,8 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/noLogueado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordInput"
-        app:layout_constraintVertical_bias="0.628" />
+        app:layout_constraintTop_toBottomOf="@id/passwordInput" />
 
     <TextView
         android:id="@+id/noLogueado"
@@ -78,7 +86,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="196dp"
         android:text="¿Ya estas registrado?"
-        android:textColor="#000000"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="#80000000"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

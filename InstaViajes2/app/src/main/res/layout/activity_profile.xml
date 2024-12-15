@@ -7,20 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-    <!-- Agregar ScrollView para hacer el contenido desplazable -->
     <android.widget.ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <!-- Contenedor principal para los elementos del perfil -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Título del perfil -->
             <TextView
                 android:id="@+id/profileTitle"
                 android:layout_width="wrap_content"
@@ -32,7 +29,6 @@
                 android:layout_marginBottom="24dp"
                 android:gravity="center"/>
 
-            <!-- Imagen de perfil (Micro) -->
             <ImageView
                 android:id="@+id/profileImage"
                 android:layout_width="120dp"
@@ -44,7 +40,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- Nombre de usuario -->
             <TextView
                 android:id="@+id/usernameLabel"
                 android:layout_width="wrap_content"
@@ -61,7 +56,6 @@
                 android:hint="Escribe tu nombre de usuario"
                 android:inputType="text"/>
 
-            <!-- Correo electrónico -->
             <TextView
                 android:id="@+id/emailLabel"
                 android:layout_width="wrap_content"
@@ -78,7 +72,6 @@
                 android:hint="Escribe tu correo electrónico"
                 android:inputType="textEmailAddress"/>
 
-            <!-- Teléfono -->
             <TextView
                 android:id="@+id/phoneLabel"
                 android:layout_width="wrap_content"
@@ -95,7 +88,6 @@
                 android:hint="+34 000000000"
                 android:inputType="phone"/>
 
-            <!-- Descripción -->
             <TextView
                 android:id="@+id/descriptionLabel"
                 android:layout_width="wrap_content"
@@ -113,7 +105,6 @@
                 android:hint="Cuenta algo de ti."
                 android:inputType="textMultiLine"/>
 
-            <!-- Imagen debajo de la descripción (centrada) -->
             <ImageView
                 android:id="@+id/extraImage"
                 android:layout_width="93dp"
@@ -125,7 +116,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionInput" />
 
-            <!-- Botón de Guardar -->
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="wrap_content"

@@ -22,14 +22,12 @@ class MenuActivity : AppCompatActivity(),
     private lateinit var gestureDetector: GestureDetector
     private var scaleFactor = 1f
 
-    // Constantes
     private val SPEECH_REQUEST_CODE = 1
     private val MIN_DISTANCE = 200
     private val MIN_VELOCITY = 200
     private val MIN_SCALE = 0.1f
     private val MAX_SCALE = 5.0f
 
-    // Referencias a los layouts
     private lateinit var layouts: List<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +35,9 @@ class MenuActivity : AppCompatActivity(),
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
-        // Inicializar detectores de gestos
         scaleGestureDetector = ScaleGestureDetector(this, this)
         gestureDetector = GestureDetector(this, this)
 
-        // Inicializar los layouts
         val layoutAvailableTrip = findViewById<LinearLayout>(R.id.layoutAvailableTrips)
         val layoutLogout = findViewById<LinearLayout>(R.id.layoutLogout)
         val layoutProfile = findViewById<LinearLayout>(R.id.layoutProfile)
@@ -62,7 +58,6 @@ class MenuActivity : AppCompatActivity(),
             layoutSupport
         )
 
-        // Configuración de eventos
         layoutLogout.setOnClickListener {
             val pantallaLogin = Intent(this, LoginActivity::class.java)
             startActivity(pantallaLogin)
@@ -98,7 +93,6 @@ class MenuActivity : AppCompatActivity(),
         }
 
         layoutSupport.setOnClickListener {
-            // Puedes cambiar el mensaje cuando se implemente la funcionalidad de soporte
             Toast.makeText(this, "Soporte aún no implementado", Toast.LENGTH_SHORT).show()
         }
 

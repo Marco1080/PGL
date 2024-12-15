@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         val randomImage = images[Random.nextInt(images.size)]
         imageView.setImageResource(randomImage)
 
-        val noRegistrado = findViewById<TextView>(R.id.noRegistrado)
+        val noRegistrado = findViewById<TextView>(R.id.noLogueado)
         noRegistrado.setOnClickListener {
             val pantallaRegistro = Intent(this, RegisterActivity::class.java)
             startActivity(pantallaRegistro)
