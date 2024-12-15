@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.util.Locale
 
-class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
+class MenuActivity : AppCompatActivity(),
     ScaleGestureDetector.OnScaleGestureListener,
     GestureDetector.OnGestureListener {
 
@@ -22,14 +22,14 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
     private lateinit var gestureDetector: GestureDetector
     private var scaleFactor = 1f
 
-    // Constantes para configuraciones de gestos
+    // Constantes
     private val SPEECH_REQUEST_CODE = 1
-    private val MIN_DISTANCE = 200 // Distancia mínima para reconocer un deslizamiento
-    private val MIN_VELOCITY = 200 // Velocidad mínima para reconocer un deslizamiento
+    private val MIN_DISTANCE = 200
+    private val MIN_VELOCITY = 200
     private val MIN_SCALE = 0.1f
     private val MAX_SCALE = 5.0f
 
-    // Referencias a los layouts para facilitar la manipulación
+    // Referencias a los layouts
     private lateinit var layouts: List<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,11 +37,11 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
-        // Inicializar ScaleGestureDetector y GestureDetector
+        // Inicializar detectores de gestos
         scaleGestureDetector = ScaleGestureDetector(this, this)
         gestureDetector = GestureDetector(this, this)
 
-        // Obtener referencias a los LinearLayouts
+        // Inicializar los layouts
         val layoutAvailableTrip = findViewById<LinearLayout>(R.id.layoutAvailableTrips)
         val layoutLogout = findViewById<LinearLayout>(R.id.layoutLogout)
         val layoutProfile = findViewById<LinearLayout>(R.id.layoutProfile)
@@ -52,11 +52,17 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
         val layoutSupport = findViewById<LinearLayout>(R.id.layoutSupport)
 
         layouts = listOf(
-            layoutLogout, layoutProfile, layoutMyTrips, layoutCreateTrip,
-            layoutVoiceControl, layoutSettings, layoutSupport
+            layoutAvailableTrip,
+            layoutLogout,
+            layoutProfile,
+            layoutMyTrips,
+            layoutCreateTrip,
+            layoutVoiceControl,
+            layoutSettings,
+            layoutSupport
         )
 
-        // Configurar listeners para los layouts
+        // Configuración de eventos
         layoutLogout.setOnClickListener {
             val pantallaLogin = Intent(this, LoginActivity::class.java)
             startActivity(pantallaLogin)
@@ -76,7 +82,26 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
             startSpeechToText()
         }
 
-        // Configurar manejo de "Edge to Edge"
+        layoutMyTrips.setOnClickListener {
+            val intent = Intent(this, MyTripsActivity::class.java)
+            startActivity(intent)
+        }
+
+        layoutCreateTrip.setOnClickListener {
+            val intent = Intent(this, NewTripActivity::class.java)
+            startActivity(intent)
+        }
+
+        layoutSettings.setOnClickListener {
+            val intent = Intent(this, ConfigurationActivity::class.java)
+            startActivity(intent)
+        }
+
+        layoutSupport.setOnClickListener {
+            // Puedes cambiar el mensaje cuando se implemente la funcionalidad de soporte
+            Toast.makeText(this, "Soporte aún no implementado", Toast.LENGTH_SHORT).show()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -84,7 +109,6 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
         }
     }
 
-    // Método para iniciar el reconocimiento de voz
     private fun startSpeechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -99,7 +123,6 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
         }
     }
 
-    // Método que recibe el resultado del reconocimiento de voz
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -121,7 +144,6 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
         }
     }
 
-    // Manejo de gestos: Fling y Zoom
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val isScaleGesture = scaleGestureDetector.onTouchEvent(event)
         val isGesture = gestureDetector.onTouchEvent(event)
@@ -159,6 +181,7 @@ class MenuActivity : AppCompatActivity(), // Cambié de abstract a class.
             layout.scaleX = scaleFactor
             layout.scaleY = scaleFactor
         }
+
         return true
     }
 
