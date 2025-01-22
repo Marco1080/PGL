@@ -18,12 +18,12 @@ class TripsActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var tripsAdapter: TripsAdapter
-    private val tripsList = mutableListOf<Trip>()  // Lista ficticia de viajes
+    private val tripsList = mutableListOf<Trip>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()  // Activa el diseño de pantalla completa sin recortes
-        setContentView(R.layout.activity_trips)  // Configura el layout
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_trips)
 
         recyclerView = findViewById(R.id.recyclerViewTrips)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -34,10 +34,35 @@ class TripsActivity : AppCompatActivity() {
         tripsAdapter = TripsAdapter(tripsList)
         recyclerView.adapter = tripsAdapter
 
+        val username = intent.getStringExtra("USERNAME") ?: "Usuario desconocido"
+        loadTripsFromDatabase(username)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun loadTripsFromDatabase(username: String) {
+        val dbHelper = DataBaseHelper(this)
+        val trips = dbHelper.getTripsByUser(username)
+
+        if (trips.isEmpty()) {
+            println("No se encontraron viajes para el usuario $username")
+        } else {
+            trips.forEach { trip ->
+                println("Cargando viaje: Ubicación=${trip["location"]}, Fecha=${trip["date"]}, Descripción=${trip["description"]}")
+                tripsList.add(
+                    Trip(
+                        location = trip["location"] ?: "Sin ubicación",
+                        date = trip["date"] ?: "Sin fecha",
+                        description = trip["description"] ?: "Sin descripción",
+                        imageResId = R.drawable.viajedevacaciones
+                    )
+                )
+            }
+            tripsAdapter.notifyDataSetChanged()
         }
     }
 }

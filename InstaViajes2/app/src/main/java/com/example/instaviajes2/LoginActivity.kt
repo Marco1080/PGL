@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
         val noRegistrado = findViewById<TextView>(R.id.noLogueado)
         val buttonMenu = findViewById<Button>(R.id.buttonMenu)
 
-        // Selección aleatoria de fondo
         val images = arrayOf(
             R.drawable.montania1,
             R.drawable.montania2,
@@ -31,14 +30,11 @@ class LoginActivity : AppCompatActivity() {
         )
         val randomImage = images[Random.nextInt(images.size)]
         imageView.setImageResource(randomImage)
-
-        // Navegación al registro
         noRegistrado.setOnClickListener {
             val pantallaRegistro = Intent(this, RegisterActivity::class.java)
             startActivity(pantallaRegistro)
         }
 
-        // Validación de usuario y navegación al menú
         buttonMenu.setOnClickListener {
             val username = usernameInput.text.toString()
             val password = passwordInput.text.toString()
@@ -55,9 +51,8 @@ class LoginActivity : AppCompatActivity() {
                     arrayOf(username, password)
                 )
                 if (cursor.moveToFirst()) {
-                    // Credenciales correctas
                     val pantallaMenu = Intent(this, MenuActivity::class.java)
-                    pantallaMenu.putExtra("USERNAME", username)
+                    pantallaMenu.putExtra("username", username)
                     startActivity(pantallaMenu)
                     finish()
                 } else {

@@ -29,6 +29,7 @@ class MenuActivity : AppCompatActivity(),
     private val MAX_SCALE = 5.0f
 
     private lateinit var layouts: List<LinearLayout>
+    private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,8 @@ class MenuActivity : AppCompatActivity(),
 
         scaleGestureDetector = ScaleGestureDetector(this, this)
         gestureDetector = GestureDetector(this, this)
+
+        username = intent.getStringExtra("username") ?: "Usuario desconocido"
 
         val layoutAvailableTrip = findViewById<LinearLayout>(R.id.layoutAvailableTrips)
         val layoutLogout = findViewById<LinearLayout>(R.id.layoutLogout)
@@ -70,6 +73,7 @@ class MenuActivity : AppCompatActivity(),
 
         layoutProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("username", username)
             startActivity(intent)
         }
 
@@ -79,11 +83,13 @@ class MenuActivity : AppCompatActivity(),
 
         layoutMyTrips.setOnClickListener {
             val intent = Intent(this, MyTripsActivity::class.java)
+            intent.putExtra("username", username)
             startActivity(intent)
         }
 
         layoutCreateTrip.setOnClickListener {
             val intent = Intent(this, NewTripActivity::class.java)
+            intent.putExtra("username", username)
             startActivity(intent)
         }
 
@@ -126,10 +132,22 @@ class MenuActivity : AppCompatActivity(),
                 val command = it[0].lowercase(Locale.getDefault())
 
                 when (command) {
-                    "perfil" -> startActivity(Intent(this, ProfileActivity::class.java))
+                    "perfil" -> {
+                        val intent = Intent(this, ProfileActivity::class.java)
+                        intent.putExtra("username", username)
+                        startActivity(intent)
+                    }
                     "viajes disponibles" -> startActivity(Intent(this, TripsActivity::class.java))
-                    "mis viajes" -> startActivity(Intent(this, MyTripsActivity::class.java))
-                    "crear viaje" -> startActivity(Intent(this, NewTripActivity::class.java))
+                    "mis viajes" -> {
+                        val intent = Intent(this, MyTripsActivity::class.java)
+                        intent.putExtra("username", username)
+                        startActivity(intent)
+                    }
+                    "crear viaje" -> {
+                        val intent = Intent(this, NewTripActivity::class.java)
+                        intent.putExtra("username", username)
+                        startActivity(intent)
+                    }
                     "configuración" -> startActivity(Intent(this, ConfigurationActivity::class.java))
                     "salir", "cerrar sesión" -> startActivity(Intent(this, LoginActivity::class.java))
                     else -> Toast.makeText(this, "Comando no reconocido: $command", Toast.LENGTH_SHORT).show()
@@ -159,6 +177,7 @@ class MenuActivity : AppCompatActivity(),
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else {
                     val intent = Intent(this, ProfileActivity::class.java)
+                    intent.putExtra("username", username)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
