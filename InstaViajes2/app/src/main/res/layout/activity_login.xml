@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="196dp"
-        android:text="¿Ya estas registrado?"
+        android:text="¿No estas registrado?"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:background="#80000000"
