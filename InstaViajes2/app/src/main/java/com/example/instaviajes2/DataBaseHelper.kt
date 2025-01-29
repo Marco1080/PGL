@@ -96,6 +96,7 @@ class DataBaseHelper(
 
         while (cursor.moveToNext()) {
             val trip = mapOf(
+                "title" to cursor.getString(cursor.getColumnIndexOrThrow("title")),
                 "location" to cursor.getString(cursor.getColumnIndexOrThrow("location")),
                 "date" to cursor.getString(cursor.getColumnIndexOrThrow("date")),
                 "description" to cursor.getString(cursor.getColumnIndexOrThrow("description"))
@@ -105,5 +106,6 @@ class DataBaseHelper(
         cursor.close()
         return trips
     }
+
 
 }

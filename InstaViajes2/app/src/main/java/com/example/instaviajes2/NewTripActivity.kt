@@ -3,7 +3,6 @@ package com.example.instaviajes2
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
@@ -16,23 +15,10 @@ class NewTripActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.ubicacion)
         val items = arrayOf(
             "Selecciona ubicación",
-            "Andalucía",
-            "Aragón",
-            "Asturias",
-            "Canarias",
-            "Cantabria",
-            "Castilla y León",
-            "Castilla-La Mancha",
-            "Cataluña",
-            "Extremadura",
-            "Galicia",
-            "Madrid",
-            "Murcia",
-            "Navarra",
-            "La Rioja",
-            "País Vasco",
-            "Comunidad Valenciana",
-            "Islas Baleares"
+            "Andalucía", "Aragón", "Asturias", "Canarias", "Cantabria",
+            "Castilla y León", "Castilla-La Mancha", "Cataluña", "Extremadura",
+            "Galicia", "Madrid", "Murcia", "Navarra", "La Rioja",
+            "País Vasco", "Comunidad Valenciana", "Islas Baleares"
         )
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
@@ -46,6 +32,7 @@ class NewTripActivity : AppCompatActivity() {
 
         val username = intent.getStringExtra("username") ?: "Usuario desconocido"
 
+        // Mostrar selector de fecha cuando el usuario hace clic en el campo de fecha
         editTextDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -61,32 +48,29 @@ class NewTripActivity : AppCompatActivity() {
         }
 
         buttonSubmitTrip.setOnClickListener {
-            val title = editTextTitle.text.toString()
-            val description = editTextDescription.text.toString()
-            val date = editTextDate.text.toString()
+            val title = editTextTitle.text.toString().trim()
+            val description = editTextDescription.text.toString().trim()
+            val date = editTextDate.text.toString().trim()
             val location = spinner.selectedItem.toString()
 
+            // Validación de campos
             if (title.isEmpty() || description.isEmpty() || date.isEmpty() || location == "Selecciona ubicación") {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Guardar el viaje en la base de datos
             val dbHelper = DataBaseHelper(this)
             val success = dbHelper.insertTrip(title, description, date, location, username)
 
             if (success) {
                 Toast.makeText(this, "Viaje creado con éxito", Toast.LENGTH_SHORT).show()
 
-                // Mostrar los viajes creados por consola
-                val trips = dbHelper.getTripsByUser(username)
-                trips.forEach { trip ->
-                    Log.d("Viajes", "Título: ${trip["title"]}, Descripción: ${trip["description"]}, Fecha: ${trip["date"]}, Ubicación: ${trip["location"]}")
-                }
-
+                // Redirigir al usuario al menú
                 val intent = Intent(this, MenuActivity::class.java)
                 intent.putExtra("username", username)
                 startActivity(intent)
-                finish()
+                finish() // Cierra la actividad para que no pueda volver atrás
             } else {
                 Toast.makeText(this, "Error al guardar el viaje", Toast.LENGTH_SHORT).show()
             }
