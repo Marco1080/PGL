@@ -1,5 +1,6 @@
 package com.example.instaviajes2
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -15,6 +16,9 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var descriptionInput: EditText
     private val SPEECH_REQUEST_CODE = 1
     private lateinit var dbHelper: DataBaseHelper
+    private var originalUsername: String? = null
+    private var originalEmail: String? = null
+    private var originalPhone: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +56,11 @@ class ProfileActivity : AppCompatActivity() {
                 println("Email: $email")
                 println("Phone: $phone")
 
+                // Guardar valores originales para detectar cambios
+                originalUsername = retrievedUsername
+                originalEmail = email
+                originalPhone = phone
+
                 // Mostrar los datos en los EditTexts
                 usernameInput.setText(retrievedUsername)
                 emailInput.setText(email)
@@ -65,30 +74,55 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            val username = usernameInput.text.toString()
-            val email = emailInput.text.toString()
-            val phone = phoneInput.text.toString()
-            val description = descriptionInput.text.toString()
+            val updatedUsername = usernameInput.text.toString()
+            val updatedEmail = emailInput.text.toString()
+            val updatedPhone = phoneInput.text.toString()
 
-            // Mostrar mensaje de confirmación
-            Toast.makeText(this, "Perfil actualizado.", Toast.LENGTH_SHORT).show()
+            // Verificar si hubo cambios antes de actualizar
+            if (updatedUsername != originalUsername || updatedEmail != originalEmail || updatedPhone != originalPhone) {
+                val updated = updateUser(originalUsername ?: "", updatedUsername, updatedEmail, updatedPhone)
+                if (updated) {
+                    Toast.makeText(this, "Perfil actualizado correctamente.", Toast.LENGTH_SHORT).show()
+                    println("Usuario actualizado en la base de datos:")
+                    println("Nuevo Username: $updatedUsername")
+                    println("Nuevo Email: $updatedEmail")
+                    println("Nuevo Phone: $updatedPhone")
 
-            // Crear un Intent para redirigir al MenuActivity
-            val intent = Intent(this, MenuActivity::class.java)
-
-            // Opcional: enviar datos actualizados al menú si es necesario
-            intent.putExtra("username", username)
-
-            // Iniciar la actividad del menú
-            startActivity(intent)
-
-            // Finalizar la actividad actual para no volver al perfil al presionar atrás
-            finish()
+                    // Crear un Intent para redirigir al MenuActivity con el username actualizado
+                    val intent = Intent(this, MenuActivity::class.java)
+                    intent.putExtra("username", updatedUsername)
+                    startActivity(intent)
+                    finish() // Cierra la actividad actual
+                } else {
+                    Toast.makeText(this, "Error al actualizar perfil.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "No se detectaron cambios en los datos.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         extraImage.setOnClickListener {
             startSpeechToText()
         }
+    }
+
+    /**
+     * Método para actualizar el usuario en la base de datos
+     */
+    private fun updateUser(oldUsername: String, newUsername: String, email: String, phone: String): Boolean {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues()
+
+        // Si el username ha cambiado, actualizarlo
+        if (oldUsername != newUsername) {
+            values.put("username", newUsername)
+        }
+        values.put("email", email)
+        values.put("phone", phone)
+
+        // Ejecutar la actualización
+        val rowsUpdated = db.update("Users", values, "username = ?", arrayOf(oldUsername))
+        return rowsUpdated > 0
     }
 
     /**
