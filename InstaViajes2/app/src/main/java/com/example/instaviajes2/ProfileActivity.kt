@@ -14,10 +14,14 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var descriptionInput: EditText
     private val SPEECH_REQUEST_CODE = 1
+    private lateinit var dbHelper: DataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        // Inicializar la base de datos
+        dbHelper = DataBaseHelper(this)
 
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
         val emailInput = findViewById<EditText>(R.id.emailInput)
@@ -26,12 +30,60 @@ class ProfileActivity : AppCompatActivity() {
         val saveButton = findViewById<Button>(R.id.saveButton)
         val extraImage = findViewById<ImageView>(R.id.extraImage)
 
+        // Recibir el Intent y extraer el "username"
+        val username = intent.getStringExtra("username")
+
+        // Realizar un select del usuario y mostrar cada columna por consola
+        if (username != null) {
+            val db = dbHelper.readableDatabase
+            val cursor = db.rawQuery("SELECT * FROM Users WHERE username = ?", arrayOf(username))
+
+            if (cursor.moveToFirst()) {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                val retrievedUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"))
+                val password = cursor.getString(cursor.getColumnIndexOrThrow("password"))
+                val email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
+                val phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"))
+
+                println("Usuario encontrado:")
+                println("ID: $id")
+                println("Username: $retrievedUsername")
+                println("Password: $password")
+                println("Email: $email")
+                println("Phone: $phone")
+
+                // Mostrar los datos en los EditTexts
+                usernameInput.setText(retrievedUsername)
+                emailInput.setText(email)
+                phoneInput.setText(phone)
+            } else {
+                println("Usuario no encontrado.")
+            }
+            cursor.close()
+        } else {
+            println("No se recibió username.")
+        }
+
         saveButton.setOnClickListener {
             val username = usernameInput.text.toString()
             val email = emailInput.text.toString()
             val phone = phoneInput.text.toString()
             val description = descriptionInput.text.toString()
+
+            // Mostrar mensaje de confirmación
             Toast.makeText(this, "Perfil actualizado.", Toast.LENGTH_SHORT).show()
+
+            // Crear un Intent para redirigir al MenuActivity
+            val intent = Intent(this, MenuActivity::class.java)
+
+            // Opcional: enviar datos actualizados al menú si es necesario
+            intent.putExtra("username", username)
+
+            // Iniciar la actividad del menú
+            startActivity(intent)
+
+            // Finalizar la actividad actual para no volver al perfil al presionar atrás
+            finish()
         }
 
         extraImage.setOnClickListener {
@@ -65,7 +117,7 @@ class ProfileActivity : AppCompatActivity() {
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             result?.let {
-                descriptionInput.setText(it[0]) // Llenar el campo de descripción con el texto reconocido
+                descriptionInput.setText(it[0])
             }
         }
     }
