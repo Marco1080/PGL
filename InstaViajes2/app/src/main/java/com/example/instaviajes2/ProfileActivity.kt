@@ -24,7 +24,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        // Inicializar la base de datos
         dbHelper = DataBaseHelper(this)
 
         val usernameInput = findViewById<EditText>(R.id.usernameInput)
@@ -34,10 +33,8 @@ class ProfileActivity : AppCompatActivity() {
         val saveButton = findViewById<Button>(R.id.saveButton)
         val extraImage = findViewById<ImageView>(R.id.extraImage)
 
-        // Recibir el Intent y extraer el "username"
         val username = intent.getStringExtra("username")
 
-        // Realizar un select del usuario y mostrar cada columna por consola
         if (username != null) {
             val db = dbHelper.readableDatabase
             val cursor = db.rawQuery("SELECT * FROM Users WHERE username = ?", arrayOf(username))
@@ -56,12 +53,10 @@ class ProfileActivity : AppCompatActivity() {
                 println("Email: $email")
                 println("Phone: $phone")
 
-                // Guardar valores originales para detectar cambios
                 originalUsername = retrievedUsername
                 originalEmail = email
                 originalPhone = phone
 
-                // Mostrar los datos en los EditTexts
                 usernameInput.setText(retrievedUsername)
                 emailInput.setText(email)
                 phoneInput.setText(phone)
@@ -78,7 +73,6 @@ class ProfileActivity : AppCompatActivity() {
             val updatedEmail = emailInput.text.toString()
             val updatedPhone = phoneInput.text.toString()
 
-            // Verificar si hubo cambios antes de actualizar
             if (updatedUsername != originalUsername || updatedEmail != originalEmail || updatedPhone != originalPhone) {
                 val updated = updateUser(originalUsername ?: "", updatedUsername, updatedEmail, updatedPhone)
                 if (updated) {
@@ -88,11 +82,10 @@ class ProfileActivity : AppCompatActivity() {
                     println("Nuevo Email: $updatedEmail")
                     println("Nuevo Phone: $updatedPhone")
 
-                    // Crear un Intent para redirigir al MenuActivity con el username actualizado
                     val intent = Intent(this, MenuActivity::class.java)
                     intent.putExtra("username", updatedUsername)
                     startActivity(intent)
-                    finish() // Cierra la actividad actual
+                    finish()
                 } else {
                     Toast.makeText(this, "Error al actualizar perfil.", Toast.LENGTH_SHORT).show()
                 }
@@ -106,28 +99,20 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Método para actualizar el usuario en la base de datos
-     */
     private fun updateUser(oldUsername: String, newUsername: String, email: String, phone: String): Boolean {
         val db = dbHelper.writableDatabase
         val values = ContentValues()
 
-        // Si el username ha cambiado, actualizarlo
         if (oldUsername != newUsername) {
             values.put("username", newUsername)
         }
         values.put("email", email)
         values.put("phone", phone)
 
-        // Ejecutar la actualización
         val rowsUpdated = db.update("Users", values, "username = ?", arrayOf(oldUsername))
         return rowsUpdated > 0
     }
 
-    /**
-     * Método para iniciar el reconocimiento de voz
-     */
     private fun startSpeechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)

@@ -13,10 +13,8 @@ class MyTripsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_trips)
 
-        // Inicializar la base de datos
         dbHelper = DataBaseHelper(this)
 
-        // Obtener el username del Intent
         val username = intent.getStringExtra("username")
 
         if (username == null) {
@@ -25,10 +23,8 @@ class MyTripsActivity : AppCompatActivity() {
             return
         }
 
-        // Buscar viajes del usuario en la base de datos
         val trips = dbHelper.getTripsByUser(username)
 
-        // Verificar si hay viajes y listarlos por consola
         if (trips.isNotEmpty()) {
             Log.d("MyTripsActivity", "Viajes encontrados para el usuario: $username")
             for ((index, trip) in trips.withIndex()) {

@@ -32,7 +32,6 @@ class NewTripActivity : AppCompatActivity() {
 
         val username = intent.getStringExtra("username") ?: "Usuario desconocido"
 
-        // Mostrar selector de fecha cuando el usuario hace clic en el campo de fecha
         editTextDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -53,24 +52,21 @@ class NewTripActivity : AppCompatActivity() {
             val date = editTextDate.text.toString().trim()
             val location = spinner.selectedItem.toString()
 
-            // Validación de campos
             if (title.isEmpty() || description.isEmpty() || date.isEmpty() || location == "Selecciona ubicación") {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Guardar el viaje en la base de datos
             val dbHelper = DataBaseHelper(this)
             val success = dbHelper.insertTrip(title, description, date, location, username)
 
             if (success) {
                 Toast.makeText(this, "Viaje creado con éxito", Toast.LENGTH_SHORT).show()
 
-                // Redirigir al usuario al menú
                 val intent = Intent(this, MenuActivity::class.java)
                 intent.putExtra("username", username)
                 startActivity(intent)
-                finish() // Cierra la actividad para que no pueda volver atrás
+                finish()
             } else {
                 Toast.makeText(this, "Error al guardar el viaje", Toast.LENGTH_SHORT).show()
             }

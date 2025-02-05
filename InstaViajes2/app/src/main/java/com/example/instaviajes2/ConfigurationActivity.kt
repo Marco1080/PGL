@@ -23,15 +23,12 @@ class ConfigurationActivity : AppCompatActivity() {
         mainLayout = findViewById(R.id.main)
         switchHighContrast = findViewById(R.id.switchHighContrast)
 
-        // Inicializar SharedPreferences
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE)
 
-        // Cargar estado del modo nocturno
         val isNightMode = sharedPreferences.getBoolean("isNightMode", false)
         updateBackground(isNightMode)
         switchHighContrast.isChecked = isNightMode
 
-        // Listener para el Switch
         switchHighContrast.setOnCheckedChangeListener { _, isChecked ->
             updateBackground(isChecked)
             saveNightModeState(isChecked)
@@ -44,9 +41,6 @@ class ConfigurationActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Actualiza el fondo según el estado del modo nocturno.
-     */
     private fun updateBackground(isNightMode: Boolean) {
         if (isNightMode) {
             mainLayout.setBackgroundColor(resources.getColor(android.R.color.black, theme))
@@ -55,9 +49,6 @@ class ConfigurationActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Guarda el estado del modo nocturno en SharedPreferences.
-     */
     private fun saveNightModeState(isNightMode: Boolean) {
         val editor = sharedPreferences.edit()
         editor.putBoolean("isNightMode", isNightMode)

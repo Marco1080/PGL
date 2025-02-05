@@ -12,10 +12,8 @@ class TripsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar la base de datos
         dbHelper = DataBaseHelper(this)
 
-        // Obtener el username del Intent
         val username = intent.getStringExtra("username")
 
         if (username == null) {
@@ -24,10 +22,8 @@ class TripsActivity : AppCompatActivity() {
             return
         }
 
-        // Consultar los viajes del usuario en la base de datos
         val trips = dbHelper.getTripsByUser(username)
 
-        // Imprimir en consola los viajes encontrados
         if (trips.isNotEmpty()) {
             println("Viajes encontrados para el usuario: $username")
             for ((index, trip) in trips.withIndex()) {
