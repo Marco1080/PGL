@@ -99,7 +99,9 @@ class MenuActivity : AppCompatActivity(),
         }
 
         layoutSupport.setOnClickListener {
-            Toast.makeText(this, "Soporte aún no implementado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ReportsActivity::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -123,44 +125,29 @@ class MenuActivity : AppCompatActivity(),
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            result?.let {
-                val command = it[0].lowercase(Locale.getDefault())
-
-                when (command) {
-                    "perfil" -> {
-                        val intent = Intent(this, ProfileActivity::class.java)
-                        intent.putExtra("username", username)
-                        startActivity(intent)
-                    }
-                    "viajes disponibles" -> startActivity(Intent(this, TripsActivity::class.java))
-                    "mis viajes" -> {
-                        val intent = Intent(this, MyTripsActivity::class.java)
-                        intent.putExtra("username", username)
-                        startActivity(intent)
-                    }
-                    "crear viaje" -> {
-                        val intent = Intent(this, NewTripActivity::class.java)
-                        intent.putExtra("username", username)
-                        startActivity(intent)
-                    }
-                    "configuración" -> startActivity(Intent(this, ConfigurationActivity::class.java))
-                    "salir", "cerrar sesión" -> startActivity(Intent(this, LoginActivity::class.java))
-                    else -> Toast.makeText(this, "Comando no reconocido: $command", Toast.LENGTH_SHORT).show()
-                }
-            }
+    override fun onScale(detector: ScaleGestureDetector): Boolean {
+        scaleFactor *= detector.scaleFactor
+        scaleFactor = scaleFactor.coerceIn(MIN_SCALE, MAX_SCALE)
+        for (layout in layouts) {
+            layout.scaleX = scaleFactor
+            layout.scaleY = scaleFactor
         }
+        return true
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        val isScaleGesture = scaleGestureDetector.onTouchEvent(event)
-        val isGesture = gestureDetector.onTouchEvent(event)
-        return isScaleGesture || isGesture || super.onTouchEvent(event)
-    }
+    override fun onScaleBegin(detector: ScaleGestureDetector): Boolean = true
+
+    override fun onScaleEnd(detector: ScaleGestureDetector) {}
+
+    override fun onDown(e: MotionEvent): Boolean = false
+
+    override fun onShowPress(e: MotionEvent) {}
+
+    override fun onSingleTapUp(e: MotionEvent): Boolean = false
+
+    override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean = false
+
+    override fun onLongPress(e: MotionEvent) {}
 
     override fun onFling(
         e1: MotionEvent?,
@@ -185,30 +172,4 @@ class MenuActivity : AppCompatActivity(),
         }
         return true
     }
-
-    override fun onScale(detector: ScaleGestureDetector): Boolean {
-        scaleFactor *= detector.scaleFactor
-        scaleFactor = scaleFactor.coerceIn(MIN_SCALE, MAX_SCALE)
-
-        for (layout in layouts) {
-            layout.scaleX = scaleFactor
-            layout.scaleY = scaleFactor
-        }
-
-        return true
-    }
-
-    override fun onScaleBegin(detector: ScaleGestureDetector): Boolean = true
-
-    override fun onScaleEnd(detector: ScaleGestureDetector) {}
-
-    override fun onDown(e: MotionEvent): Boolean = false
-
-    override fun onShowPress(e: MotionEvent) {}
-
-    override fun onSingleTapUp(e: MotionEvent): Boolean = false
-
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean = false
-
-    override fun onLongPress(e: MotionEvent) {}
 }

@@ -1,20 +1,30 @@
 package com.example.instaviajes2
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MyTripsActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DataBaseHelper
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: TripsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_trips)
 
-        dbHelper = DataBaseHelper(this)
+        recyclerView = findViewById(R.id.recycler_view_trips)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
+        adapter = TripsAdapter(mutableListOf()) { position ->
+            removeTrip(position)
+        }
+        recyclerView.adapter = adapter
+
+        dbHelper = DataBaseHelper(this)
         val username = intent.getStringExtra("username")
 
         if (username == null) {
@@ -23,20 +33,21 @@ class MyTripsActivity : AppCompatActivity() {
             return
         }
 
-        val trips = dbHelper.getTripsByUser(username)
+        val trips = dbHelper.getTripsByUser(username).toMutableList()
 
         if (trips.isNotEmpty()) {
-            Log.d("MyTripsActivity", "Viajes encontrados para el usuario: $username")
-            for ((index, trip) in trips.withIndex()) {
-                Log.d("MyTripsActivity", "Viaje ${index + 1}:")
-                Log.d("MyTripsActivity", "Título: ${trip["title"]}")
-                Log.d("MyTripsActivity", "Ubicación: ${trip["location"]}")
-                Log.d("MyTripsActivity", "Fecha: ${trip["date"]}")
-                Log.d("MyTripsActivity", "Descripción: ${trip["description"]}")
-                Log.d("MyTripsActivity", "-------------------------")
+            recyclerView.post {
+                adapter = TripsAdapter(trips) { position ->
+                    removeTrip(position)
+                }
+                recyclerView.adapter = adapter
             }
         } else {
-            Log.d("MyTripsActivity", "No se encontraron viajes para el usuario: $username")
+            Toast.makeText(this, "No se encontraron viajes", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun removeTrip(position: Int) {
+        adapter.removeItem(position)
     }
 }
